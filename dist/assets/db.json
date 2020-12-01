@@ -1,0 +1,66 @@
+{
+    "styles": [
+        {
+            "src": "assets/img/styles-5.jpg",
+            "title": "Пастелью",
+            "link": "#pastel"
+        },
+        {
+            "src": "assets/img/styles-6.jpg",
+            "title": "Поп-арт",
+            "link": "#popart"
+        },
+        {
+            "src": "assets/img/styles-7.png",
+            "title": "Фотомозаика",
+            "link": "#mozaika"
+        },
+        {
+            "src": "assets/img/styles-8.jpg",
+            "title": "Шарж",
+            "link": "#sharj"
+        }
+    ],
+    "sizes": [
+        {
+            "value": "500",
+            "size": "40*50"
+        },
+        {
+            "value": "1000",
+            "size": "50*70"
+        },
+        {
+            "value": "1500",
+            "size": "70*70"
+        },
+        {
+            "value": "2000",
+            "size": "70*100"
+        }
+    ],
+    "material": [
+        {
+            "value": "1.1"
+        },
+        {
+            "value": "1.5"
+        },
+        {
+            "value": "1.7"
+        }
+    ],
+    "options": [
+        {
+            "value": "400"
+        },
+        {
+            "value": "600"
+        },
+        {
+            "value": "1000"
+        }
+    ]
+}
+
+                    

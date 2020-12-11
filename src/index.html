@@ -11,7 +11,7 @@
 </head>
 <body>
 	<img class="fixed-gift wow pulse infinite" src=assets/img/gift.png alt>
-	<header class=header>
+	<header id="up" class=header>
 		<div class=container>
 			<div class="col-md-2 col-sm-3 col-xs-6">
 				<button class=burger>
@@ -86,7 +86,7 @@
 					<div class=file_upload>
 						<button type=button>Загрузить фотографию</button>
 						<div>Файл не выбран</div>
-						<input type=file name=upload>
+						<input class="autoSend" type=file name=upload multiple accept="image/*">
 					</div>
 					<p class=email>E-mail: <a href=mailto:info@kartiny.art>info@kartiny.art</a></p>
 				</div>
@@ -237,22 +237,17 @@
 						<div class=file_upload>
 							<button type=button>Загрузить фотографию</button>
 							<div>Файл не выбран</div>
-							<input type=file name=upload>
+							<input type=file name=upload multiple accept="image/*">
 						</div>
 						<select id="size" data-select="size">
-							<option value >Выберите размер картины</option>
+							<option>Выберите размер картины</option>
 						</select> 
 						<select id="material" data-select="material">
-							<option value >Выберите материал картины</option>
-							<!-- <option value="1.1" title="Изящный, позволяет легко создавать текстуру, подходит для декоративных картин маслом.">Холст из волокна</option>
-							<option value="1.5" title="Достаточно грубый и создает ощущение реальности, подходит для классических пейзажей, натюрмортов и портретов.">Льняной холст</option>
-							<option value="1.7" title="Изящный, подходит для всех типов реалистичных портретов.">Холст из натурального хлопка</option> -->
+							<option>Выберите материал картины</option>
+
 						</select>
 						<select id="options" data-select="options">
-							<option value >Дополнительные услуги</option>
-							<!-- <option value="400">Покрытие арт-гелем</option>
-							<option value="600">Экспресс-изготовление</option>
-							<option value="1000">Доставка готовых работ </option> -->
+							<option>Дополнительные услуги</option>
 						</select>
 						<input type="text" class="promocode" placeholder="Введите ваш промокод">
 						<div class=calc-price>Для расчета нужно выбрать размер картины и материал картины</div>
@@ -271,13 +266,13 @@
 			<div class=p-heading>Примеры работ</div>
 			<h2>Для кого делаем портрет?</h2>
 			<ul class=portfolio-menu>
-				<li class="all active">Все работы</li>
-				<li class=lovers>Для влюбленных</li>
-				<li class=chef>Для шефа</li>
-				<li class=girl>Для девушки</li>
-				<li class=guy>Для парня</li>
-				<li class=grandmother>Для бабушки</li>
-				<li class=granddad>Для дедушки</li>
+				<li class="all active" data-filter="all">Все работы</li>
+				<li class="lovers" data-filter="lovers">Для влюбленных</li>
+				<li class="chef" data-filter="chef">Для шефа</li>
+				<li class="girl" data-filter="girl">Для девушки</li>
+				<li class="guy" data-filter="guy">Для парня</li>
+				<li class="grandmother" data-filter="">Для бабушки</li>
+				<li class="granddad" data-filter="">Для дедушки</li>
 			</ul>
 		</div>
 		<div class=portfolio-wrapper>
@@ -313,7 +308,7 @@
 			</div>
 		</div>
 		<div class=container>
-			<p class=portfolio-no>Таких портретов мы еще не делали, хотите быть первыми?</p>
+			<p class="portfolio-no">Таких портретов мы еще не делали, хотите быть первыми?</p>
 		</div>
 	</section>
 	<section class=gift>
@@ -705,5 +700,10 @@
 			</div>
 		</div>
 	</div>
+	<a href="#up" class="pageup">
+		<svg class="up" viewBox="0 0 26 26" fill="#fff" xmlns="http://www.w3.org/2000/svg">
+			<path fill-rule="evenodd" clip-rule="evenodd" d="M26 0H0V26H26V0ZM4.6593 17.7519L13.1233 10.33L21.5873 17.7519L22.9059 16.2481L13.7826 8.24813L13.1233 7.67L12.464 8.24813L3.3407 16.2481L4.6593 17.7519Z" fill="black"/>
+		</svg>
+	</a>
 </body>
 </html>

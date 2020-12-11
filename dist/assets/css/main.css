@@ -913,10 +913,30 @@ h4 {
   border-bottom: 2px dotted #333;
 }
 .often-questions .accordion-block {
-  margin-top: 1rem;
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
   background-color: #f7e7e6;
-  padding: 3rem 4rem;
+  transition: all 0.5s ease-out;
 }
+
+.often-questions .accordion-block.active-content {
+  padding: 3rem 4rem;
+  margin-top: 1rem;
+  opacity: 1;
+  overflow: visible;
+}
+
+.often-questions .accordion-heading.active + .accordion-block {
+  display: block;
+}
+
+.accordion-heading.active-style span {
+  color: violet;
+  font-weight: bold;
+  font-size: x-large;
+}
+
 .often-questions .accordion-block:before {
   content: '';
   position: absolute;
@@ -1273,6 +1293,21 @@ h4 {
 .status {
   text-align: center;
 }
+
+.pageup {
+  opacity: 0;
+	width: 26px ;
+	height: 26px;
+	position: fixed;
+	bottom: 100px;
+	right: 5%;
+	z-index: 30;
+	background-color: #fff;
+	cursor: pointer;
+	border: 1px solid white;
+  transition: 1s all;
+}
+
 
 @media (max-width: 1399px) {
   .paints {

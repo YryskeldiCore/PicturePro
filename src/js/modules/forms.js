@@ -46,29 +46,35 @@ const forms = (state) => {
         });
     };
 
+    const input = document.querySelector('.autoSend');
 
+        input.addEventListener('drop', (e) => {
+            const form = document.querySelector('form');
+            input.files = e.dataTransfer.files;
+            console.log(input.files[0]);
+
+            const formData = new FormData(form);
+            formData.append('file', input.files[0]);
+
+            postData(path.upload, formData)
+                .then((res) => {
+                    console.log(res);
+                    showThanksModal(input.parentNode, messages.ok, messages.success);
+                })
+                .catch(() => {
+                    showThanksModal(input.parentNode, messages.failure, messages.fail);
+                })
+                .finally(() => {
+                    clearInputs();
+                });
+        
+        });
+
+    
 
     form.forEach(item => {
         item.addEventListener('submit', (e) => {
             e.preventDefault();
-
-            let statusMessage = document.createElement('div');
-            statusMessage.classList.add('status');
-            item.parentNode.appendChild(statusMessage);
-
-            item.classList.add('animated', 'fadeOutUp');
-            setTimeout(() => {
-                item.style.display = 'none';
-            }, 400);
-
-            let statusImg = document.createElement('img');
-            statusImg.setAttribute('src', messages.spinner);
-            statusImg.classList.add('animated','fadeInUp');
-            statusMessage.appendChild(statusImg);
-
-            let textMessage = document.createElement('div');
-            textMessage.textContent = messages.loading;
-            statusMessage.appendChild(textMessage);
 
             const formData = new FormData(item);
             if(item.getAttribute('data-calc') === 'picture'){
@@ -84,24 +90,46 @@ const forms = (state) => {
             postData(api, formData)
                 .then((res) => {
                     console.log(res);
-                    statusImg.setAttribute('src', messages.ok);
-                    textMessage.textContent = messages.success;
+                    showThanksModal(item, messages.ok, messages.success);
                 })
                 .catch(() => {
-                    statusImg.setAttribute('src', messages.failure);
-                    textMessage.textContent = messages.fail;
+                    showThanksModal(item, messages.failure, messages.fail);
                 })
                 .finally(() => {
                     clearInputs();
-                    setTimeout(() => {
-                        statusMessage.remove();
-                        item.style.display = 'block';
-                        item.classList.remove('fadeOutUp');
-                        item.classList.add('fadeInUp');
-                    }, 4000);
                 });
         });
     });
+
+    function showThanksModal(item, messageImg, messageText){
+        let statusMessage = document.createElement('div');
+        statusMessage.classList.add('status');
+        item.parentNode.appendChild(statusMessage);
+
+        item.classList.add('animated', 'fadeOutUp');
+        setTimeout(() => {
+            item.style.display = 'none';
+        }, 400);
+
+        let statusImg = document.createElement('img');
+        statusImg.setAttribute('src', messages.spinner);
+        statusImg.classList.add('animated','fadeInUp');
+        statusMessage.appendChild(statusImg);
+
+        let textMessage = document.createElement('div');
+        textMessage.textContent = messages.loading;
+        statusMessage.appendChild(textMessage);
+
+        statusImg.setAttribute('src', messageImg);
+        textMessage.textContent = messageText;
+
+        setTimeout(() => {
+            statusMessage.remove();
+            item.style.display = 'block';
+            item.classList.remove('fadeOutUp');
+            item.classList.add('fadeInUp');
+        }, 4000);
+    }
 };
 
 export default forms;

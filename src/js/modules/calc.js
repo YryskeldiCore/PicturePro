@@ -10,20 +10,6 @@ const calc = (size, material, options, promocode, result, state, prop = result) 
 
     let sum = 0;
 
-    const checkState = (event, elem, prop) => {
-            elem.addEventListener(event , () => {
-                switch(elem.nodeName){
-                    case 'INPUT':
-                        state[prop] = elem.value;
-                        break;
-                    case 'SELECT':
-                        state[prop] = elem.value;
-                        break;
-                }
-            console.log(state);   
-            });  
-    };
-
     const arr = [sizeBlock, materialBlock, optionsBlock];
     const url = ['http://localhost:3000/sizes', 'http://localhost:3000/materials', 'http://localhost:3000/options'];
 
@@ -41,36 +27,37 @@ const calc = (size, material, options, promocode, result, state, prop = result) 
             if(item.getAttribute('data-select') === 'size'){
                 options.setAttribute('value', value);
                 options.innerHTML = `${size}`;
-                let text = options.textContent;
-                if(text === 'undefined'){
-                    text.parentNode.remove();
+                if(options.innerHTML === 'undefined'){
+                    options.outerHTML = '';
                 }
             }
             if(item.getAttribute('data-select') === 'material'){
                 options.setAttribute('value', value);
-                options.innerHTML = `${option}`;
-                let text = options.textContent;
-                if(text === 'undefined'){
-                    text.parentNode.remove();
+                options.innerHTML = `${material}`;
+                if(options.innerHTML === 'undefined'){
+                    options.outerHTML = '';
                 }
             }
             if(item.getAttribute('data-select') === 'options'){
                 options.setAttribute('value', value);
                 options.setAttribute('title', title);
-                options.innerHTML = `${material}`;
-                let text = options.textContent;
-                if(text === 'undefined'){
-                    text.parentNode.remove();
+                options.innerHTML = `${option}`;
+                if(options.innerHTML === 'undefined'){
+                    options.outerHTML = '';
                 }
             }
             item.appendChild(options);
         });
     }
 
-    function calc(){
-        sum = Math.round((+sizeBlock.value) * (+materialBlock.value) + (+optionsBlock.value));
+    const calc = () => {
+        const sizeValue = document.querySelector('select#size'),
+              materialValue = document.querySelector('select#material'),
+              optionsValue = document.querySelector('select#options');
+              
+        sum = Math.round((+sizeValue.value) * (+materialValue.value) + (+optionsValue.value));
 
-        if(sizeBlock.value == '' || materialBlock.value == ''){
+        if(sizeValue.value == '' || isNaN(materialValue.value) || isNaN(optionsValue.value)){
             resultBlock.textContent = 'Пожалуйста выберите размер и материал';
         } else if (promocodeBlock.value === 'IWANTPOPART'){
             resultBlock.textContent = Math.round(sum * 0.7);
@@ -78,16 +65,36 @@ const calc = (size, material, options, promocode, result, state, prop = result) 
             resultBlock.textContent = sum;
         }
         state[prop] = sum;
-    }
 
-    sizeBlock.addEventListener('change', calc);
-    materialBlock.addEventListener('change', calc);
-    optionsBlock.addEventListener('change', calc);
+        const checkState = (event, elem, prop) => {
+            elem.addEventListener(event , () => {
+                switch(elem.nodeName){
+                    case 'INPUT':
+                        state[prop] = elem.value;
+                        break;
+                    case 'SELECT':
+                        state[prop] = elem.value;
+                        break;
+                }
+            console.log(state);   
+            });  
+        };
+
+        checkState('change', sizeValue, size);
+        checkState('change', materialValue, material);
+        checkState('change', optionsValue, options);
+        checkState('input', promocodeBlock, promocode);
+    };
+
+    const form = document.querySelector('.form.form-select');
+
+    form.addEventListener('change', (e) => {
+        let target = e.target;
+        if(target && target.matches('select')){
+            calc();
+        }
+    });
+
     promocodeBlock.addEventListener('input', calc);
-    checkState('change', sizeBlock, size);
-    checkState('change', materialBlock, material);
-    checkState('change', optionsBlock, options);
-    checkState('input', promocodeBlock, promocode);
 };
-
 export default calc;

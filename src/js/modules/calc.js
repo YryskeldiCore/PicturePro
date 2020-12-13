@@ -76,7 +76,6 @@ const calc = (size, material, options, promocode, result, state, prop = result) 
                         state[prop] = elem.value;
                         break;
                 }
-            console.log(state);   
             });  
         };
 

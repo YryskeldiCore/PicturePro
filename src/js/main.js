@@ -14,9 +14,7 @@ import drop from './modules/drop';
 
 window.addEventListener('DOMContentLoaded', () => {
     'use strict';
-
     const state = {};
-
     modals();
     sliders('.main-slider-item', 'vertical');
     sliders('.feedback-slider-item', 'horizontal', '.main-prev-btn', '.main-next-btn');

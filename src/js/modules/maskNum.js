@@ -1,34 +1,24 @@
 const maskNum = (selector) => {
-
-    function setCursorPosition(pos, elem){
-        elem.focus();
-        if (elem.setSelectionRange){
-            elem.setSelectionRange(pos, pos);
-        } else if (elem.createTextRange){
-            let range = elem.createTextRange();
-        
-            range.collapse(true);
-            range.moveEnd('character', pos);
-            range.moveStart('character', pos);
-            range.select();
-        }
-    }
+    const inputs = document.querySelectorAll(selector);
     
     function mask(event){
-        let matrix = '+7 (___) ___ __ __',
-            i = 0,
-            def = matrix.replace(/\D/g, ''),
-            val = this.value.replace(/\D/g, '');
-        
-        if(def.length >= val.length){
-            val = def;
+        let matrix = '+7 (___) ___ __ __', // 1) We creating matrix I mean musk example 
+            i = 0,                         // iteration letter
+            def = matrix.replace(/\D/g, ''), // def replacing no-digit symbols from musk to ''
+            val = this.value.replace(/\D/g, ''); // We got value from input here and also replacing
+                                                 // no-digit to ''
+        if(def.length >= val.length){ // if def.length(18) >= val.length
+            val = def;                 // We assign def to val 
         }
 
-        this.value = matrix.replace(/./ig, function(a){
-            return /[_\d]/.test(a) && i <= val.length ? val.charAt(i++) : i >= val.length ? '' : a; 
-        });
-
-        if(event.type === 'blur'){
+        this.value = matrix.replace(/./ig, function(a){ // In this code we have input(this.value) we replace all letters to func.value
+            return /[_\d]/.test(a) && i <= val.length ? val.charAt(i++) : i >= val.length ? '' : a;
+        });  // a - param which take every value from this.value 
+             // and a will pass through func and return right value 
+             // /[_\d]/ - range from 0 - 9 exception str. 
+             // test() - method which test regExp above and return true or false 
+             // charAt() - returns a new string consisting of the single UTF-16 code unit located at the specified offset into the string. 
+        if(event.type === 'blur'){ // When we hovering out of input executing event = blur 
             if(this.value.length == 2){
                 this.value = '';
                 this.style.border = '1px solid red';
@@ -47,17 +37,27 @@ const maskNum = (selector) => {
             setCursorPosition(this.value.length, this);
             this.style.border = 'none';
         }
-
     }
-
-    const inputs = document.querySelectorAll(selector);
+    
+    function setCursorPosition(pos, elem){
+        elem.focus(); // We are focusing to start of input
+        if (elem.setSelectionRange){ // if we have set selectionRange we set the pos which comes from "this.value.length"
+            elem.setSelectionRange(pos, pos); // this condition executes when type of input is "PhoneMusk"
+        } else if (elem.createTextRange){ // if not we need to createTextRange (this condition for input type= name, comment etc)
+            let range = elem.createTextRange(); 
+            range.collapse(true); // collapsing from end of input to start 
+            range.moveEnd('character', pos);
+            range.moveStart('character', pos);
+            range.select();
+        }
+    }
 
     inputs.forEach(input => {
         input.addEventListener('mouseup', mask, (e) => {
             e.preventDefault();
-            input.setSelectionRange(4);
-        });
-        input.addEventListener('keyup', mask, (e) => {
+            input.setSelectionRange(4); // At this code I solve this problem with event 'mouseup' 
+        });                             // when we hover the cursor its automatically put after musk
+        input.addEventListener('keyup', mask, (e) => { // if we move cursor with key its back to 4 pos 
             if(e.code === 'ArrowLeft'){
                 e.preventDefault();
                 input.setSelectionRange(4);
@@ -70,6 +70,8 @@ const maskNum = (selector) => {
 };
 
 export default maskNum;
+
+// 2nd type of MuskNum
 
 // function maskNum(selector, masked = '+7 (___) ___-__-__') {
 // 	const elems = document.querySelectorAll(selector);

@@ -19,27 +19,27 @@ const scrolling = (arrUp) => {
     triggers.forEach(trigger => {
         trigger.addEventListener('click', function(e){
             e.preventDefault();
-            let scrollTop = document.documentElement.scrollTop,
-                hash = this.hash,
+            let scrollTop = document.documentElement.scrollTop, 
+                hash = this.hash, // url with start /#up 
                 toBlock = document.querySelector(hash).getBoundingClientRect().top,
                 start = null;
             
-            requestAnimationFrame(step);
+            requestAnimationFrame(step); // func which play anim and get argument func step ()
 
-            function step(time){
-                if(start === null){
-                    start = time;
+            function step(time){ // func which give to requestAnimationFrame always contains 'TIME'
+                if(start === null){ // start === null it means end of the func step or requestAnimationFrame is finished 
+                    start = time; // first stage = 0 it's start of our site (top)
                 }
 
-                let progress = time - start,
+                let progress = time - start, 
                 r = (toBlock < 0 ? Math.max(scrollTop - progress/speed, scrollTop + toBlock): Math.min(scrollTop + progress/speed, scrollTop + toBlock));
-
+                // toBlock < 0 means negative num, > 0 positive num 
                 document.documentElement.scrollTo(0 , r);
 
-                if(r != scrollTop + toBlock){
-                    requestAnimationFrame(step);
+                if(r != scrollTop + toBlock){ // this code means if r != 0
+                    requestAnimationFrame(step);    // We scroll to top 
                 } else {
-                    location.hash = hash;
+                    location.hash = hash; // put to location API hash 
                 }
             }
         });

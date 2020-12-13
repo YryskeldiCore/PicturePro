@@ -1,8 +1,8 @@
 const modals = () => {
-    let btnPressed = false;
+    let btnPressed = false; // this var is for showModalByScroll to open later or not
 
     function openModal(modal){
-        const scroll = calcScroll();
+        const scroll = calcScroll(); // number of px which hide the scroll 
         modal.classList.add('show');
         modal.classList.remove('hide');
         document.body.style.overflow = 'hidden';
@@ -31,14 +31,15 @@ const modals = () => {
         btns.forEach(btn => {
             btn.addEventListener('click', (e) => {
 
-                if(e.target){
+                if(e.target){ // if it's link we cancel the base behavior of browser 
                     e.preventDefault();
                 }
-                if(destroy){
+
+                if(destroy){ // we give the param to bindModal if true FE: gift-btn this btn will remove others not
                     btn.remove();
                 }
 
-                btnPressed = true;
+                btnPressed = true; // if true we won't open the modal by scroll
 
                 windows.forEach(window => {
                     closeModal(window);
@@ -49,7 +50,6 @@ const modals = () => {
 
         close.addEventListener('click', () => {
                 closeModal(modal);
-
         });
 
         modal.addEventListener('click', (e) => {
@@ -65,8 +65,7 @@ const modals = () => {
         });
     }
 
-
-    function calcScroll(){
+    function calcScroll(){ // In this func we hide the scroll at right side to correct positioning of gift
         const div = document.createElement('div');
         div.style.height = '50px';
         div.style.width = '50px';
@@ -75,30 +74,29 @@ const modals = () => {
         document.body.appendChild(div);
 
         const scrollWidth = div.offsetWidth - div.clientWidth;
-
+        // offsetWidth returns the width of Elem 
+        // clientWidth returns client width it means without scroll padding and margin 
         div.remove();
-        return scrollWidth;
+        return scrollWidth; // it's number of px counted in func 
     }
 
-
     function showModalByTime(selector, time){
-        const windows = document.querySelectorAll('[data-modal]');
+        const windows = document.querySelectorAll('[data-modal]'); // We got all modalWindows to getComputedStyle
         setTimeout(() => {
-            let display;
+            let display; // We need to create this var for keeping Boolean value which we got from computedStyle
 
             windows.forEach(window => {
-                if(getComputedStyle(window).display !== 'none'){
-                    display = 'block';
+                if(getComputedStyle(window).display !== 'none'){ // We got from computedStyle displayValue if it's not 'none'
+                    display = 'block';                           // We got dipslay var from above and give the value 'display'
                 }
             });
 
-            if(!display){
-                openModal(document.querySelector(selector));
+            if(!display){ // If display = block We can't open in future modalWindow 
+                openModal(document.querySelector(selector)); // if display can't get the value it will openModal 
             }
 
         }, time);
     }
-
     
     function showModalByScroll(selector){
         window.addEventListener('scroll', () => {
@@ -109,13 +107,11 @@ const modals = () => {
         });
     }
 
-
     bindModal('.button-design', '.popup-design', '.popup-design .popup-close');
     bindModal('.button-consultation', '.popup-consultation', '.popup-consultation .popup-close');
     bindModal('.fixed-gift','.popup-gift', '.popup-gift .popup-close', true);
     showModalByTime('.popup-consultation', 60000);
     showModalByScroll('.fixed-gift');
-
 };
 
 export default modals;

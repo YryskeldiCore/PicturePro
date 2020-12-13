@@ -1,13 +1,13 @@
 "use strict";
 
-const gulp = require("gulp");
+const gulp = require("gulp"); // 1)We're getting necessary components to gulp 
 const webpack = require("webpack-stream");
 const browsersync = require("browser-sync");
 
-// const dist = "./dist/";
-const dist = '../OSPanel/domains/Picture.local';
+// const dist = "./dist/"; // We sending the changes after use command gulp to file "dist"
+const dist = '../OSPanel/domains/Picture.local'; // Doing same things before but to file "PictureLocal" then we can open in OpenServer
 
-gulp.task("copy-html", () => {
+gulp.task("copy-html", () => { // The 1st task "copy-html" 
     return gulp.src("./src/index.html")
                 .pipe(gulp.dest(dist))
                 .pipe(browsersync.stream());

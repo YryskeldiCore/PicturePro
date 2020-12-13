@@ -2,13 +2,13 @@ const sliders = (slides, dir, prevArr, nextArr) => {
     let slideIndex = 1,
         hover = false;
         
-    const items = document.querySelectorAll(slides);
+    const items = document.querySelectorAll(slides); // We got all slides to go through and add or remove inline styles or class 
 
-    function showSlides(n){
-        if(n > items.length){
-            slideIndex = 1;
+    function showSlides(n){ 
+        if(n > items.length){ // When the slide = last slide 
+            slideIndex = 1;   // Next slide will be first 
         }
-        if(n < 1){
+        if(n < 1){            // Reverse to condition above 
             slideIndex = items.length;
         }
 

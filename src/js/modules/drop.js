@@ -35,19 +35,19 @@ const drop = () => {
         item.closest('.file_upload').style.backgroundColor = '#ededed';
     }
 
-    ['dragenter', 'dragover'].forEach(event => { // We calling func highlight when we executing the event in arr
+    ['dragenter', 'dragover'].forEach(event => {    // We calling func highlight when we executing the event in arr
         inputFiles.forEach(input => {
             input.addEventListener(event, () => highlight(input), false);
         });
     }); 
 
-    ['dragleave', 'drop'].forEach(event => { // The same thing like above 
+    ['dragleave', 'drop'].forEach(event => {    // The same thing like above 
         inputFiles.forEach(input => {
             input.addEventListener(event, () => unhighlight(input), false);
         });
     }); 
 
-    inputFiles.forEach(input => { // Here when we drop the file, we show to user than this file is in server FE,
+    inputFiles.forEach(input => {               // Here when we drop the file, we show to user than this file is in server FE,
         input.addEventListener('drop', (e) => { // changing the name of value 
             input.files = e.dataTransfer.files; // prop dataTransfer contains all Data about drag & drop
             let dots;

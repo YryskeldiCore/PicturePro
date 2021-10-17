@@ -13,15 +13,19 @@
     "not dead"
   ],
   "devDependencies": {
-    "@babel/core": "^7.7.4",
-    "@babel/preset-env": "^7.7.4",
+    "@babel/core": "^7.12.16",
+    "@babel/preset-env": "^7.12.16",
     "babel": "^6.23.0",
     "babel-core": "^6.26.3",
-    "babel-loader": "^8.0.6",
-    "browser-sync": "^2.26.7",
-    "core-js": "^3.4.2",
+    "babel-loader": "^8.2.2",
+    "browser-sync": "^2.26.14",
+    "core-js": "^3.8.3",
     "gulp": "^4.0.2",
-    "webpack": "^4.41.2",
+    "webpack": "^4.46.0",
     "webpack-stream": "^5.2.1"
+  },
+  "dependencies": {
+    "gulp-html-minifier": "^0.1.8",
+    "gulp-htmlmin": "^5.0.1"
   }
 }

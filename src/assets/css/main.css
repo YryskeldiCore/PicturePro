@@ -72,6 +72,7 @@ h4 {
   font-family: 'Circe Bold', sans-serif;
 }
 
+
 .hide {
   display: none;
 }
@@ -107,6 +108,14 @@ h4 {
   border: 2px solid #c51abb;
   background-color: transparent;
 }
+
+.button:hover {
+  transform: scale(1.1);
+  border: 2px solid blue;
+  box-shadow:rgba(0, 0, 0, 0.22);
+  transition: 1s all;
+}
+
 .fixed-gift {
   position: fixed;
   z-index: 19;
